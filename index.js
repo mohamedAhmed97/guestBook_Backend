@@ -1,9 +1,14 @@
 const express = require('express')
-const app = express()
+//database
 require('./database/mongoose')
+//user 
+const app = express()
 
-app.get('/', function (req, res) {
-    res.send('Hello World')
+const userRoute = require('./routes/user')
+app.use(express.json());
+
+app.use("/api", userRoute)
+
+app.listen(3000, () => {
+    console.log("Done");
 })
-
-app.listen(3000)
