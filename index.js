@@ -3,9 +3,9 @@ const express = require('express')
 require('./database/mongoose')
 //user 
 const app = express()
-
-const userRoute = require('./routes/user')
 app.use(express.json());
+const userRoute = require('./routes/user')
+
 
 app.use("/api", userRoute)
 
