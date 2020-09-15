@@ -39,6 +39,17 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
+userSchema.virtual('messages', {
+    ref: 'Message',
+    localField: '_id',
+    foreignField: 'from'
+})
+
+userSchema.virtual('sentMessages', {
+    ref: 'Message',
+    localField: '_id',
+    foreignField: 'to'
+})
 userSchema.methods.toJSON = function () {
     const user = this
     const userObject = user.toObject()
