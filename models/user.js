@@ -42,13 +42,13 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('messages', {
     ref: 'Message',
     localField: '_id',
-    foreignField: 'from'
+    foreignField: 'to'
 })
 
 userSchema.virtual('sentMessages', {
     ref: 'Message',
     localField: '_id',
-    foreignField: 'to'
+    foreignField: 'from'
 })
 userSchema.methods.toJSON = function () {
     const user = this

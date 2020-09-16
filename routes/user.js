@@ -3,8 +3,19 @@ const express = require('express')
 const User = require('../models/user')
 //Auth 
 const Auth = require('../middleware/auth')
+const Message = require('../models/message')
 const router = new express.Router()
 
+
+//get all users
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.send(users);
+    } catch (error) {
+        res.send(error)
+    }
+})
 //insert user
 router.post('/users', async (req, res) => {
     const user = new User(req.body);
@@ -52,8 +63,8 @@ router.post('/users/logoutAll', Auth, async (req, res) => {
 
 router.get('/users/incomingMessages', Auth, async (req, res) => {
     try {
-        await req.user.populate('messages').execPopulate()
-        res.send({ "user": req.user, "messages": req.user.messages });
+        const messages = await req.user.populate('messages').execPopulate();
+        res.send(messages.messages);
     } catch (error) {
         res.status(400).send(error)
     }
@@ -61,8 +72,8 @@ router.get('/users/incomingMessages', Auth, async (req, res) => {
 
 router.get('/users/sentMessages', Auth, async (req, res) => {
     try {
-        await req.user.populate('sentMessages').execPopulate()
-        res.send({ "user": req.user, "messages": req.user.sentMessages });
+        const messages=await req.user.populate('sentMessages').execPopulate()
+        res.send(messages.sentMessages);
     } catch (error) {
         res.status(400).send(error)
     }

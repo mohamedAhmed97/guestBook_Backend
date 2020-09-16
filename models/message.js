@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Message = mongoose.model('Message', {
+const messageSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -15,17 +15,24 @@ const Message = mongoose.model('Message', {
         type: String,
         trim: true
     },
-    from:{
-        type:mongoose.Schema.Types.ObjectId,
+    from: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'User'
+        ref: 'User'
     },
-    to:{
-        type:mongoose.Schema.Types.ObjectId,
+    to: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'User'
+        ref: 'User'
     },
 
-});
+},
+    {
+        timestamps: true
+    }
+
+);
+
+const Message = mongoose.model('Message', messageSchema)
 
 module.exports = Message
