@@ -1,6 +1,9 @@
 const express = require('express')
+//dontenv
+require('dotenv').config({ path: './config/config.env' });
 //database
 require('./database/mongoose')
+
 //user 
 const app = express()
 app.use(express.json());
@@ -20,6 +23,6 @@ app.use("/api", userRoute)
 //messages routs
 app.use("/api/", messageRoute);
 
-app.listen(3001, () => {
-  console.log("Done");
+app.listen(process.env.PORT, () => {
+  console.log("Server Running on port" + process.env.PORT);
 })
