@@ -76,7 +76,7 @@ router.patch('/messages/:id/reply', Auth, async (req, res) => {
     }
 
     try {
-        const message = await Message.findOne({ _id: req.params.id, from: req.user._id })
+        const message = await Message.findOne({ _id: req.params.id})
         if (!message) {
             return res.status(404).send()
         }
