@@ -21,8 +21,8 @@ router.post('/users', async (req, res) => {
     const user = new User(req.body);
     try {
         await user.save();
-       const token = await user.generateAuthToken()
-        res.status(201).send({ user,token });
+        const token = await user.generateAuthToken()
+        res.status(201).send({ user, token });
 
     } catch (error) {
         res.status(202).send(error);
@@ -63,7 +63,12 @@ router.post('/users/logoutAll', Auth, async (req, res) => {
 
 router.get('/users/incomingMessages', Auth, async (req, res) => {
     try {
-        const messages = await req.user.populate('messages').execPopulate();
+        const messages = await req.user.populate({
+            path:'messages',
+            options:{
+                sort:'-_id'
+            }
+        }).execPopulate();
         res.send(messages.messages);
     } catch (error) {
         res.status(400).send(error)
@@ -72,7 +77,12 @@ router.get('/users/incomingMessages', Auth, async (req, res) => {
 
 router.get('/users/sentMessages', Auth, async (req, res) => {
     try {
-        const messages=await req.user.populate('sentMessages').execPopulate()
+        const messages = await req.user.populate({
+            path: 'sentMessages',
+            options: {
+                sort: '-_id'
+            }
+        }).execPopulate()
         res.send(messages.sentMessages);
     } catch (error) {
         res.status(400).send(error)
