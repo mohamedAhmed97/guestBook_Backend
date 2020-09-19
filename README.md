@@ -16,7 +16,7 @@
 
 4-Open Your Terminal
 
-5-write "npm update" for install the modules which we used it  
+5-write "npm update" for install the modules which needed in the project
 
 6-write "npm run dev" or "npm run start" to start the server
 ----------------------------------------------------------------------
