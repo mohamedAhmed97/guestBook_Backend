@@ -23,6 +23,6 @@ app.use("/api", userRoute)
 //messages routs
 app.use("/api/", messageRoute);
 
-app.listen(process.env.PORT, () => {
+app.listen(3001||process.env.PORT, () => {
   console.log("Server Running on port" + process.env.PORT);
 })
